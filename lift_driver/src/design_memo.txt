@@ -1,0 +1,72 @@
+🔧 系统架构设计
+1. 串口驱动节点（serial_lift_node）
+
+功能：
+
+订阅一个话题（例如 /lift/cmd，消息类型 std_msgs/String 或自定义 LiftCommand），把指令封装成协议帧，通过串口发送给升降平台。
+
+发布一个话题（例如 /lift/height，消息类型 std_msgs/Float32），实时解析串口返回的数据（高度值）。
+
+技术点：
+
+用 Python 写（rclpy + pyserial），实现循环读串口并发布。
+
+数据解析参考你协议（AA 07 01 ... FF → ASCII 数字 + 小数点 → float）。
+
+2. 控制服务接口（lift_control_service）
+
+功能：
+
+提供一个 ROS2 服务（例如 /lift/set_height），接受目标高度值。
+
+内部转换为对应的串口指令，发给平台。
+
+好处：
+
+上层程序可以直接调用服务，不需要关心底层协议。
+
+3. 用户交互节点（lift_teleop_keyboard）
+
+类似 turtlesim/teleop_key：
+
+监听键盘输入（↑ = 上升，↓ = 下降，s = 停止，数字键 = 定位到某高度）。
+
+发布消息到 /lift/cmd。
+
+可以用 curses 或 Python keyboard 库实现。
+
+🗂️ 话题/服务设计
+
+/lift/cmd (String / 自定义消息) → 上升、下降、停止、到某位置。
+
+/lift/height (Float32) → 实时高度反馈。
+
+/lift/set_height (Service) → 请求：目标高度，响应：是否成功。
+
+🚀 Launch 文件设计
+
+lift_bringup.launch.py
+
+启动串口驱动节点。
+
+lift_teleop.launch.py
+
+启动串口驱动节点 + 键盘遥控节点。
+
+lift_goto_high.launch.py
+
+启动时自动调用 /lift/set_height，让升降平台到最高位。
+
+lift_goto_low.launch.py
+
+启动时自动调用 /lift/set_height，让升降平台到最低位。
+
+✅ 这样设计的优点
+
+模块化：串口驱动节点和控制逻辑分开，方便以后替换硬件或协议。
+
+标准化：使用 ROS2 话题/服务，能和其他机器人系统无缝对接。
+
+灵活性：既可以手动（键盘 teleop），也可以自动（launch file 一键动作）。
+
+可扩展：以后可以加 PID 控制，让平台平滑到达目标高度。
