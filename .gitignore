@@ -1,1 +1,24 @@
-/.vscode
+# ---- ROS 2 colcon build artifacts ----
+build/
+install/
+log/
+
+# ---- CMake ----
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ---- Editors / IDEs ----
+.vscode/
+.idea/
+*.swp
+
+# ---- Misc ----
+*.DS_Store
