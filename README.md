@@ -53,23 +53,50 @@ This hybrid architecture combines the execution efficiency of C++ with the devel
 
 ### Installation Steps
 
-```bash
+
 # Clone the repository
+```bash
 git clone https://github.com/Xiaochen98/lifting_platform_ros2.git
+```
 
 # Navigate into the project directory
+```bash
 cd lifting_platform_ros2
+```
 
 # Install Python dependencies
+```bash
 pip install -r requirements.txt
+```
 
 # Build the ROS2 workspace
+```bash
 colcon build
+```
 
 # Source the workspace
+```bash
 source install/setup.bash
+```
 
-## License
+## Usage
+
+To start the lifting platform controller:
+```bash
+ros2 launch lifting_platform_ros2 platform_controller.launch.py
+```
+
+Before controlling the lifting platform, verify:
+
+Correct serial device (e.g., /dev/ttyUSB0)
+
+Matching baud rate with the lifting platform
+
+Properly configured height limits and motion parameters
+
+Configuration files in the repository can be adjusted to match your specific hardware setup.
+
+### License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
