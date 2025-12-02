@@ -54,27 +54,27 @@ This hybrid architecture combines the execution efficiency of C++ with the devel
 ### Installation Steps
 
 
-# Clone the repository
+#### Clone the repository
 ```bash
 git clone https://github.com/Xiaochen98/lifting_platform_ros2.git
 ```
 
-# Navigate into the project directory
+#### Navigate into the project directory
 ```bash
 cd lifting_platform_ros2
 ```
 
-# Install Python dependencies
+#### Install Python dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-# Build the ROS2 workspace
+#### Build the ROS2 workspace
 ```bash
 colcon build
 ```
 
-# Source the workspace
+#### Source the workspace
 ```bash
 source install/setup.bash
 ```
@@ -96,7 +96,7 @@ Properly configured height limits and motion parameters
 
 Configuration files in the repository can be adjusted to match your specific hardware setup.
 
-### License
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
