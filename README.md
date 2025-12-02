@@ -1,64 +1,78 @@
 # Lifting Platform ROS2
 
 ## Introduction
-Lifting Platform ROS2 is an automation project designed to control and manage lifting platforms using Robot Operating System 2 (ROS2). This solution is tailored for industrial environments, focusing on safety, precision, and efficiency in automated lifting operations.
 
-## Features
-- **ROS2-based Control:** Implements modular and scalable control architecture using ROS2.
-- **Multi-language Support:** Combines Python and C++ for both high-level logic and real-time performance.
-- **Easy Integration:** Designed to be integrated with various lifting platforms and industrial systems.
-- **Safety & Reliability:** Prioritizes robust operation in critical industrial scenarios.
+**Lifting Platform ROS2** is a ROS2-based automation framework designed to control and manage electric lifting platforms. It allows users to command the platform to move to target heights, automate lifting sequences, and integrate platform motion into a larger robotics or industrial control system.
+
+This project is intended for developers, researchers, and system integrators who require a reliable, adaptable lifting mechanism within a ROS2 environment.
+
+
+
+## Supported Hardware
+
+This implementation is specifically customized for the **Haorang electric lifting column**.
+
+An external **USB-to-RS232 adapter** is required for communication. If you are using lifting columns from other vendors, changes to the communication interface or protocol may be required based on the manufacturer’s specifications.
+
+
+
+## Communication Interface Notes
+
+For reliable serial communication, it is **strongly recommended** to use a USB-to-RS232 adapter based on the **FT232RL** chipset.
+
+❌ **Avoid PL2303-based adapters.**  
+Jetson devices do not provide native driver support for PL2303. Using it requires recompiling the Linux kernel, which adds unnecessary deployment complexity.
+
+
+
+## System Architecture
+
+The system consists of two major components:
+
+1. **Core Control Layer (C++)**  
+   Responsible for real-time serial communication with the lifting platform.  
+   This layer processes low-level control commands and ensures deterministic behavior when sending and receiving data through the RS232 interface.
+
+2. **ROS2 Integration Layer (Python)**  
+   Provides user-facing ROS2 nodes, services, and interfaces that expose control functions to the ROS ecosystem.  
+   This layer interprets high-level commands, sends corresponding instructions to the core controller, and handles platform configuration and automation logic.
+
+This hybrid architecture combines the execution efficiency of C++ with the development flexibility of Python, ensuring both performance and scalability.
+
+
 
 ## Installation
 
 ### Prerequisites
-- ROS2 (Humble or later recommended)
-- Python 3.8+
-- C++17 compatible compiler
-- CMake
 
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Xiaochen98/lifting_platform_ros2.git
-   ```
-2. Navigate to the project folder:
-   ```bash
-   cd lifting_platform_ros2
-   ```
-3. Install required Python packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Build the ROS2 workspace:
-   ```bash
-   colcon build
-   ```
-5. Source the setup script:
-   ```bash
-   source install/setup.bash
-   ```
+- ROS2 **Humble**
+- **Python 3.8+**
+- **C++17-compatible** compiler
+- **CMake**
+- USB-to-RS232 adapter (**FT232RL recommended**)
 
-## Usage
-After installation, you can launch the main platform controller node using ROS2 launch files:
+### Installation Steps
+
 ```bash
-ros2 launch lifting_platform_ros2 platform_controller.launch.py
-```
-Refer to the documentation and example configuration files for platform-specific setup.
+# Clone the repository
+git clone https://github.com/Xiaochen98/lifting_platform_ros2.git
 
-## Technologies Used
-- **Python** (≈48%): For scripting, automation, and high-level control.
-- **C++** (≈45%): For real-time and performance-critical modules.
-- **CMake** (≈7%): Project build and configuration.
-- **ROS2:** Robotics middleware for distributed control.
-- **Git:** Version control and collaboration.
+# Navigate into the project directory
+cd lifting_platform_ros2
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Build the ROS2 workspace
+colcon build
+
+# Source the workspace
+source install/setup.bash
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
-For more information about the project or the candidate’s experience, please reach out via GitHub or email.
 
-- GitHub: [Xiaochen98](https://github.com/Xiaochen98)
-- Email: [your.email@example.com] (please replace with your actual email)
-
----
-
-Thank you for your interest in the Lifting Platform ROS2 project!
+For questions or collaboration, please open an issue or contact myself via github
