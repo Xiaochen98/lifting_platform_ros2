@@ -5,6 +5,8 @@
 **Lifting Platform ROS2** is a ROS2-based automation framework designed to control and manage electric lifting platforms. It allows users to command the platform to move to target heights, automate lifting sequences, and integrate platform motion into a larger robotics or industrial control system.
 
 This project is intended for developers, researchers, and system integrators who require a reliable, adaptable lifting mechanism within a ROS2 environment.
+![PXL_20251206_074601754](https://github.com/user-attachments/assets/626fa2f3-a65c-4ff2-889d-cbf82edef618)
+
 
 
 
